@@ -54,8 +54,8 @@ ROOT_URLCONF = 'materialStructureRecognition.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        # 'DIRS': [],
+        'DIRS':['frontend/dist'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,6 +66,11 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+# Add for vue.js
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "frontend/dist/static"),
 ]
 
 WSGI_APPLICATION = 'materialStructureRecognition.wsgi.application'

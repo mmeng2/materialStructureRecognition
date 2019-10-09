@@ -63,7 +63,7 @@
         </el-row>
 
         <div style="margin-top: 10px">
-            <el-button>ha</el-button>
+            <el-button @click="haha">ha</el-button>
         </div>
 <!--        <div style="margin-top: 10px">-->
 <!--            <el-button>ha</el-button>-->
@@ -100,6 +100,8 @@
 
 <script>
 import {mapState, mapAction, mapGetters} from 'vuex';
+import axios from 'axios';
+import API from '../api/api'
 export default {
     name: 'HelloWorld',
     computed: {
@@ -203,8 +205,16 @@ export default {
         handleIconClick(ev) {
             console.log(ev);
         },
-        async timeout() {
-            return 'hello world';
+        haha() {
+          console.log('haha');
+            axios.get("/test/", {})
+                    .then((response)=> {
+                        alert(response.data);
+                        console.log(response.data);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
         },
     },
     mounted() {
@@ -212,8 +222,8 @@ export default {
         let s ={name: {asd: '123'}};
         let d = Object.assign({}, s);
         d.name.asd = '123456789';
+        console.log("wewewe")
         console.log(d, s);
-        console.log(this.timeout());
     }
 }
 </script>

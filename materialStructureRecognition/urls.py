@@ -13,9 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path
+from backend import views
+from django.views.generic.base import TemplateView  # 注意加上这句
 
 urlpatterns = [
+    # path('admin/', admin.site.urls),
     path('admin/', admin.site.urls),
+    path(r'', TemplateView.as_view(template_name="index.html")),
+    # 前端要调的接口
+    path('test/', views.test),
 ]
