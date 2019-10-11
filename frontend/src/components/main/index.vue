@@ -17,10 +17,10 @@
                     </el-dropdown>
                 </div>
             </el-header>
-            <el-container class="main">
+            <el-container class="main" :style="{'min-height':min_height+'px'}">
 <!--                <el-aside width="200px" :style="{'height': asideHeight+'px'}"></el-aside>-->
                 <el-container>
-                    <el-main>
+                    <el-main style="padding: 0px">
                         <router-view/>
                     </el-main>
                     <!-- <el-footer>Footer</el-footer>-->
@@ -36,6 +36,7 @@ export default {
     data() {
         return {
             asideHeight: outerHeight - 60,
+            min_height: window.innerHeight - 60,
         }
     },
     mounted () {
@@ -90,6 +91,12 @@ export default {
 
     .main {
         margin-top: 60px;
+        overflow: hidden;
+        background-color: #f0f2f5;
+        width: 100%;
+        height: 100%;
+        /*padding-top: 60px;*/
+        /*margin-bottom: 0px;*/
     }
 
     .el-aside {

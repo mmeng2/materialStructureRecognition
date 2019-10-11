@@ -1,14 +1,18 @@
 import axios from 'axios';
 import Vue from 'vue';
-Vue.prototype.$http = axios;
 
-function getTest() {
-    axios.get("/test/", {})
-        .then((response)=> {
-            alert(response.data);
-            console.log(response.data);
+let API = {
+  getTest() {
+    return new Promise((resolve, reject) => {
+      axios.get("/test/", {})
+        .then(result => {
+          resolve(result);
         })
-        .catch(function (error) {
-            console.log(error);
-        })
-}
+        .catch(error => {
+          reject(error);
+        });
+    });
+  }
+};
+
+export default API
