@@ -25,4 +25,6 @@ urlpatterns = [
     path(r'', TemplateView.as_view(template_name="index.html")),
     # 前端要调的接口
     path('test/', views.test),
+    path('getRecognizeTableList/', views.get_recognize_table_list),
+    path('getRecognizedCardList/', views.get_recognized_card_list),
 ]

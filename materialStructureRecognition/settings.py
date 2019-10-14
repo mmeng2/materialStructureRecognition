@@ -124,3 +124,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'msrplatform',     # 数据库名
+        'USER': 'root',     # 用户名
+        'PASSWORD': '123456',  # 密码
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}

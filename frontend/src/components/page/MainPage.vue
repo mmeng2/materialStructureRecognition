@@ -45,9 +45,9 @@
                 </el-tab-pane>
             </el-tabs>
 
-            <div style="margin-top: 10px">
-                <el-button @click="haha">测试按钮</el-button>
-            </div>
+<!--            <div style="margin-top: 10px">-->
+<!--                <el-button @click="haha">测试按钮</el-button>-->
+<!--            </div>-->
         </div>
     </div>
 </template>
