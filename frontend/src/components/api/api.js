@@ -35,6 +35,17 @@ let API = {
                 });
         });
     },
+    getRecognizedDetail(params) {
+        // return new Promise((resolve, reject) => {
+        //     axios.post("//", params)
+        //         .then(result => {
+        //             resolve(result);
+        //         })
+        //         .catch(error => {
+        //             reject(error);
+        //         });
+        // });
+    },
 };
 
 export default API

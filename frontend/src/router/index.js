@@ -4,6 +4,7 @@ import Main from '@/components/main/index'
 import MainPage from '@/components/page/MainPage'
 import ErrorPage from '@/components/error/ErrorPage'
 import Login from '@/components/login/login'
+import ProjectDetail from '@/components/page/ProjectDetail'
 
 Vue.use(Router)
 
@@ -22,6 +23,10 @@ export default new Router({
                 path: '/login',
                 name: 'login',
                 component: Login
+            }, {
+                name: 'projectDetail',
+                path: '/projectDetail',
+                component: ProjectDetail
             }]
         }, {
             path: '*',

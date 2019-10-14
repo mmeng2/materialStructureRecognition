@@ -5,7 +5,7 @@
             <div class="card" v-for="(item,sindex) in items" :key="item.id"
                  :style="{'margin-left':sindex==0?'0px':'55px', 'box-shadow':mouseover&&item.id==current?getElementShadow(item.element):'',
                  'background-color':getElementBackground(item.element)}"
-                 @click="projectDetail" @mouseover="onMouseIn(item.id)" @mouseout="onMouseOut">
+                 @click="projectDetail(item.id)" @mouseover="onMouseIn(item.id)" @mouseout="onMouseOut">
                 <div class="card-top">
                     <label class="title-ellipsis">{{getItemTitle(item.projectName)}}</label>
                     <el-button class="card-top-element" :type="getElementButton(item.element)" plain circle>{{item.element}}</el-button>
@@ -55,8 +55,15 @@
         },
         methods: {
             // 获取文件的详细信息，跳转到详细信息页面
-            projectDetail() {
-                console.log('获取文件的详细信息');
+            projectDetail(job_id) {
+                console.log('获取文件的详细信息:', job_id);
+                let routeData = this.$router.resolve({
+					path: "/projectDetail",
+					query: {
+						job_id: job_id
+					}
+				});
+				window.open(routeData.href, "_blank");
             },
             // 获取已识别卡片信息
             getRecognizedProjects() {

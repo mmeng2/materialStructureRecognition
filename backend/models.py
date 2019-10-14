@@ -14,9 +14,13 @@ class Projectlist(models.Model):
     uploadtime = models.DateTimeField(db_column='uploadTime', blank=True, null=True)  # Field name made lowercase.
     textfilename = models.CharField(db_column='textFileName', max_length=200, blank=True, null=True)  # Field name made lowercase.
     comment = models.CharField(max_length=200, blank=True, null=True)
+    isrecognized = models.IntegerField(db_column='isRecognized')  # Field name made lowercase.
+    element = models.CharField(max_length=50, blank=True, null=True)
+    e = models.CharField(max_length=50, blank=True, null=True)
     bz1 = models.CharField(max_length=50, blank=True, null=True)
     bz2 = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'projectlist'
+

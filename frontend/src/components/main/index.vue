@@ -40,7 +40,7 @@ export default {
         }
     },
     mounted () {
-        this.route();
+        // this.route();
     },
     methods: {
         route () {
