@@ -27,4 +27,5 @@ urlpatterns = [
     path('test/', views.test),
     path('getRecognizeTableList/', views.get_recognize_table_list),
     path('getRecognizedCardList/', views.get_recognized_card_list),
+    path('postUploadFile/', views.post_upload_file),
 ]

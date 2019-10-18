@@ -8,6 +8,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import Router from 'vue-router'
 import Moment from 'moment'
+import VueResource from 'vue-resource'
 
 // 定义全局时间戳过滤器
 Vue.filter('formatDate', function(value) {
@@ -16,6 +17,7 @@ Vue.filter('formatDate', function(value) {
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
+Vue.use(VueResource)
 // 解决router-link报错的问题
 const originalPush = Router.prototype.push
 Router.prototype.push = function (location) {

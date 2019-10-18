@@ -40,11 +40,37 @@ export default {
         }
     },
     mounted () {
-        // this.route();
+
+        this.route();
     },
     methods: {
         route () {
-            this.$router.push("/mainPage");
+            let hash = window.location.hash;
+            let path = hash.split("#")[1];
+            // this.$router.push("/mainPage");
+            if (path === "/" || path === "/login") {
+                this.$router.push("/mainPage");
+            } else {
+                if (path === "/mainPage") {
+                    this.$router.push("/mainPage");
+                } else {
+                    let hash = window.location.hash;
+                    let queryStr = hash.split("?")[1];
+                    let queryObject = {};
+                    if (queryStr) {
+                        let newQueryStr = String(queryStr).slice(0, this.queryStr);
+                        let querys = newQueryStr.split("&");
+                        querys.forEach(element => {
+                            let keys = element.split("=");
+                            queryObject[keys[0]] = keys[1];
+                        });
+                    }
+                    this.$router.push({
+                        path: path,
+                        query: queryObject
+                    });
+                }
+            }
         },
         handleCommand(command) {
             this.$message('click on item ' + command);

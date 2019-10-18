@@ -109,7 +109,7 @@
             }
         },
         mounted() {
-            this.getRecognizeProjects();
+            // this.getRecognizeProjects();
         },
         methods: {
             // 日期时间固定格式

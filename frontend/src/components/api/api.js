@@ -13,6 +13,24 @@ let API = {
                 });
         });
     },
+    postUploadFile(params) {
+        return new Promise((resolve, reject) => {
+            this.$http.post("/test/", {data: params})
+                .then(result => {
+                    resolve(result);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+            // axios.post("/test/", {data: params})
+            //     .then(result => {
+            //         resolve(result);
+            //     })
+            //     .catch(error => {
+            //         reject(error);
+            //     });
+        });
+    },
     getRecognizeTableList() {
         return new Promise((resolve, reject) => {
             axios.get("/getRecognizeTableList/", {})

@@ -12,6 +12,7 @@
                         <el-upload
                             class=""
                             action=""
+                            ref="uploadFile"
                             :file-list="fileList"
                             :auto-upload="false"
                             :limit="1"
@@ -26,7 +27,7 @@
                     </div>
                     <div style="text-align: right; margin: 0">
                         <el-button size="mini" type="text" @click="createProjectPopoverVisible = false">取消</el-button>
-                        <el-button type="primary" size="mini" @click="createProjectPopoverVisible = false">确定</el-button>
+                        <el-button type="primary" size="mini" @click="submitPopoverButton">确定</el-button>
                     </div>
                     <el-button slot="reference" size="small" type="primary">添加待识别的XAFS谱图文件
                         <i class="el-icon-upload el-icon--right"></i>
@@ -103,6 +104,20 @@ export default {
         },
         handlePreview(file) {
             file.url && file.url.indexOf('blob') !== 0 && window.open(file.url, '_blank');
+        },
+        submitPopoverButton() {
+            console.log('file:', this.file)
+            console.log('fileList:', this.fileList)
+            // this.$refs.uploadFile.submit()
+            API.postUploadFile("hahahahaha")
+                .then(result => {
+                    // alert(result.data);
+                    console.log(result.data);
+                })
+                .catch(execption => {
+                    console.log(execption);
+                });
+
         },
     },
     mounted() {
