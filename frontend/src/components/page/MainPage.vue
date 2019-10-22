@@ -6,7 +6,11 @@
                 <el-popover placement="bottom" v-model="createProjectPopoverVisible" width="330" class="create-project-button">
                     <div class="label-item">
                         <label>文件名称：</label>
-                        <el-input size="small" :maxlength="30" placeholder="最多输入30个字符"></el-input>
+                        <el-input size="small" v-model="projectName" :maxlength="30" placeholder="最多输入30个字符"></el-input>
+                    </div>
+                    <div class="label-item">
+                        <label>备注：</label>
+                        <el-input size="small" type="textarea" :rows="3" v-model="comment" :maxlength="300" placeholder="最多输入300个字符"></el-input>
                     </div>
                     <div style="line-height: 12px; margin: 0 10px 10px 10px">
                         <el-upload
@@ -73,9 +77,17 @@ export default {
             createProjectPopoverVisible: false,
             fileList: [],
             file: null,
+            projectName: '',
+            comment: '',
         };
     },
     methods: {
+        //用于验证文件名是否合法
+        checkSuffix(str) {
+            let strRegex = "(.txt|.dat)$";
+            let re = new RegExp(strRegex);
+            return re.test(str.toLowerCase());
+        },
         haha() {
             console.log('haha');
             API.getTest()
@@ -89,14 +101,21 @@ export default {
         },
         handleChange(file, fileList) {
             let sizeMB = file.size / 1024 / 1024;
-            if (sizeMB > 10) {
+            if (!this.checkSuffix(file.raw.name)) {
+                this.$alert('文件不合法，只能为txt文件或dat文件');
+                this.fileList.splice(0, 1);
+            } else if (sizeMB > 10) {
                 this.$alert('文件超过10MB');
                 this.fileList.splice(0, 1);
             } else {
                 this.file = file.raw;
                 this.fileList = fileList;
+                if (!this.projectName) {
+                    this.projectName = this.file.name;
+                }
                 //this.form.label_requirement.attachment_timestamp = +new Date() / 1000;
             }
+            console.log("file:", this.file)
         },
         handleRemove(file, fileList) {
             this.file = null;
@@ -106,10 +125,12 @@ export default {
             file.url && file.url.indexOf('blob') !== 0 && window.open(file.url, '_blank');
         },
         submitPopoverButton() {
-            console.log('file:', this.file)
-            console.log('fileList:', this.fileList)
             // this.$refs.uploadFile.submit()
-            API.postUploadFile("hahahahaha")
+            let formData = new FormData();
+            formData.append('file', this.file);
+            formData.append('projectName', this.projectName);
+            formData.append('comment', this.comment);
+            API.postUploadFile(formData)
                 .then(result => {
                     // alert(result.data);
                     console.log(result.data);

@@ -15,7 +15,11 @@ let API = {
     },
     postUploadFile(params) {
         return new Promise((resolve, reject) => {
-            this.$http.post("/test/", {data: params})
+            axios({
+                method: 'post',
+                url: "/postUploadFile/",
+                data: params,
+            })
                 .then(result => {
                     resolve(result);
                 })

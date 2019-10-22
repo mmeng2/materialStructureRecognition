@@ -3,8 +3,7 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 # 导入`connection`
 from django.db import connection
-from django.core.files.storage import FileSystemStorage
-from django.core import serializers
+import time
 import json
 
 # Create your views here.
@@ -48,7 +47,22 @@ def get_recognized_card_list(request):
 
 
 def post_upload_file(request):
-    return HttpResponse('OK')
+    if request.method == 'POST':
+        # 获得前台传来的值，转换为json形式
+        # data = request.body
+        # post_body_str = data.decode('utf-8')
+        # json_result = json.loads(post_body_str)
+        # print(json_result)
+
+        file = request.FILES.get('file', None)
+        project_name = request.POST.get('projectName')
+        comment = request.POST.get('comment')
+        if file:
+            now = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+            print(now)
+        print(file)
+        print(project_name)
+
     # if request.method == "POST":
     #     f = request.FILES.get('personico')
     #     baseDir = os.path.dirname(os.path.abspath(__name__))
@@ -69,7 +83,7 @@ def post_upload_file(request):
     #     # filename = fs.save(myfile.name, myfile)
     #
     #     print(file)
-
+    return HttpResponse('OK')
     # cursor = connection.cursor()
     # # 要想使用sql原生语句，必须用到execute()函数
     # # 然后在里面写入sql原生语句
