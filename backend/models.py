@@ -9,11 +9,11 @@ from django.db import models
 
 
 class Projectlist(models.Model):
-    id = models.CharField(primary_key=True, max_length=200)
+    id = models.CharField(primary_key=True, max_length=40)
     projectname = models.CharField(db_column='projectName', max_length=200, blank=True, null=True)  # Field name made lowercase.
     uploadtime = models.DateTimeField(db_column='uploadTime', blank=True, null=True)  # Field name made lowercase.
-    textfilename = models.CharField(db_column='textFileName', max_length=200, blank=True, null=True)  # Field name made lowercase.
-    comment = models.CharField(max_length=200, blank=True, null=True)
+    textfilename = models.CharField(db_column='textFileName', max_length=300, blank=True, null=True)  # Field name made lowercase.
+    comment = models.CharField(max_length=300, blank=True, null=True)
     isrecognized = models.IntegerField(db_column='isRecognized')  # Field name made lowercase.
     element = models.CharField(max_length=50, blank=True, null=True)
     e = models.CharField(max_length=50, blank=True, null=True)

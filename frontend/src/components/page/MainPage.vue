@@ -5,8 +5,11 @@
                 <label style="font-size: 18px; font-weight: bold;">XAFS谱图文件列表</label>
                 <el-popover placement="bottom" v-model="createProjectPopoverVisible" width="330" class="create-project-button">
                     <div class="label-item">
-                        <label>文件名称：</label>
-                        <el-input size="small" v-model="projectName" :maxlength="30" placeholder="最多输入30个字符"></el-input>
+                        <label><span style="color: #D0021B;font-size: 12px">* </span>文件名称：</label>
+                        <el-input size="small" v-model="projectName" :maxlength="50" placeholder="最多输入50个字符"></el-input>
+                    </div>
+                    <div>
+                        <label class="errorMessage" v-if="errorInfo.is_projectName_error" style="margin-left: 120px;">*文件名称不能为空</label>
                     </div>
                     <div class="label-item">
                         <label>备注：</label>
@@ -24,10 +27,14 @@
                             :on-change="handleChange"
                             :on-preview="handlePreview">
                             <el-button size="small" type="text" v-if="!file && !fileList.length">
+                                <span style="color: #D0021B">* </span>
                                 <i class="el-icon-upload el-icon--right"></i>
                                 上传待识别的XAFS谱图文件（10M）
                             </el-button>
                         </el-upload>
+                        <div>
+                            <label class="errorMessage" v-if="errorInfo.is_uploadFile_error" style="margin-left: 30px;">*请上传文件</label>
+                        </div>
                     </div>
                     <div style="text-align: right; margin: 0">
                         <el-button size="mini" type="text" @click="createProjectPopoverVisible = false">取消</el-button>
@@ -58,6 +65,9 @@
 </template>
 
 <script>
+import {
+    Loading
+} from "element-ui";
 import API from '../api/api'
 import RecognizeTableList from './RecognizeTableList'
 import RecognizedCardList from './RecognizedCardList'
@@ -79,7 +89,20 @@ export default {
             file: null,
             projectName: '',
             comment: '',
+            errorInfo: {
+                is_projectName_error: false,
+                is_uploadFile_error: false,
+            },
         };
+    },
+    watch: {
+        // 必填项验证，为空则提示
+        projectName(newVal, oldVal) {
+            this.errorInfo.is_projectName_error = !newVal;
+        },
+        file(newVal, oldVal) {
+            this.errorInfo.is_uploadFile_error = !newVal;
+        },
     },
     methods: {
         //用于验证文件名是否合法
@@ -125,6 +148,24 @@ export default {
             file.url && file.url.indexOf('blob') !== 0 && window.open(file.url, '_blank');
         },
         submitPopoverButton() {
+            // 判断必填项是否为空
+            if (!this.projectName && !this.file) {
+                this.errorInfo.is_projectName_error = true;
+                this.errorInfo.is_uploadFile_error = true;
+                return;
+            } else if (!this.projectName) {
+                this.errorInfo.is_projectName_error = true;
+                return;
+            } else if (!this.file) {
+                this.errorInfo.is_uploadFile_error = true;
+                return;
+            }
+            let loadingInstance = Loading.service({
+                lock: true,
+                text: "Loading",
+                spinner: "el-icon-loading",
+                background: "rgba(0, 0, 0, 0.7)"
+            });
             // this.$refs.uploadFile.submit()
             let formData = new FormData();
             formData.append('file', this.file);
@@ -134,9 +175,12 @@ export default {
                 .then(result => {
                     // alert(result.data);
                     console.log(result.data);
+                    // this.$router.go(0);
+                    loadingInstance.close();
                 })
                 .catch(execption => {
                     console.log(execption);
+                    loadingInstance.close();
                 });
 
         },
@@ -174,8 +218,13 @@ export default {
         margin: 10px 10px;
 
 		label:not(.el-radio) {
-			width: 100px;
+			width: 120px;
             margin-top: 5px;
 		}
+	}
+    .errorMessage {
+		font-size: 12px;
+		color: #D0021B;
+		height: 12px;
 	}
 </style>
