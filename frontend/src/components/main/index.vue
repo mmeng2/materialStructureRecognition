@@ -3,7 +3,9 @@
         <el-container>
             <el-header>
                 <div class="header-logo">
-                    HAHA
+                    <img src="../../assets/icon2.png" class="header-icon"/>
+                    &nbsp;
+                    物质结构识别平台
                 </div>
                 <div class="header-right">
                     <el-dropdown @command="handleCommand">
@@ -92,8 +94,14 @@ export default {
         display: flex;
 
         .header-logo {
-            width: 80px;
+            width: 200px;
             font-weight: bold;
+            display: flex;
+            .header-icon {
+                width: 30px;
+                height: 30px;
+                align-self: center;
+            }
         }
 
         .header-right {
