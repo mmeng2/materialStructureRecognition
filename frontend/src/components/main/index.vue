@@ -10,7 +10,7 @@
                 <div class="header-right">
                     <el-dropdown @command="handleCommand">
                         <span class="el-dropdown-link">
-                            user_name<i class="el-icon-arrow-down el-icon--right"></i>
+                            admin<i class="el-icon-arrow-down el-icon--right"></i>
                         </span>
                         <el-dropdown-menu>
                             <el-dropdown-item command="user">用户中心</el-dropdown-item>

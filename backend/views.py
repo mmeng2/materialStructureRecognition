@@ -66,7 +66,7 @@ def post_upload_file(request):
             now_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
             # 插入sql语句
             # cursor = connection.cursor()
-            # sql = 'insert projectlist () values (%s' %id + ', %s' %project_name +', )'
+            # sql = 'insert into '
             # cursor.execute(sql)
             print(now_time)
         print(id)
