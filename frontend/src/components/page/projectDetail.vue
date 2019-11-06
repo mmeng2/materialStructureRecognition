@@ -61,13 +61,13 @@
                     },
                     xAxis: {
                         title: {
-                            text: '能量'
+                            text: '能量E(ev)'
                         }
                     },
                     colors: ['#39F', '#F7A35C'],
                     yAxis: {
                         title: {
-                            text: '吸收系数'
+                            text: '吸收系数μ(E)'
                         },
                         // min: 0
                     },
@@ -153,6 +153,7 @@
                         shared: true,
                         useHTML: true
                     },
+                    colors: ['#39F', '#4dd3b9', '#fdd67f', '#ffaca8', '#8085E9', '#F7A35C', '#90ED7D'],
                     credits: {
                         enabled: false
                     },
@@ -163,7 +164,6 @@
                         categories: [
                             'Fe foil', 'Fe2O3', 'FeN', 'Fe3O4', 'FeC', 'FeO', 'FeS2'
                         ],
-                        crosshair: true
                     },
                     yAxis: {
                         min: 0,
@@ -174,6 +174,7 @@
                     plotOptions: {
                         series: {
                             borderWidth: 0,
+                            colorByPoint: true,
                             dataLabels: {
                                 enabled: true,
                                 formatter: function () {
