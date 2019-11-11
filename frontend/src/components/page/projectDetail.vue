@@ -179,13 +179,14 @@
                                 enabled: true,
                                 formatter: function () {
                                     if (this.y > 0)
-                                        return this.y + ' %'; // 这里进行判断
+                                        return '<b style="font-size: 14px">' + this.y + ' %</b>'; // 这里进行判断
                                 },
                             }
                         }
                     },
                     series: [{
-                        data: [0, 59, 0, 23, 0, 18, 0]
+                        // data: [0, 59, 0, 23, 0, 18, 0]
+                        data: [8.7, 45.8, 0.2, 12.4, 15.2, 9.6, 8.1]
                     }]
                 },
                 component_pie_option: {
@@ -210,7 +211,7 @@
                                 enabled: true,
                                 formatter: function () {
                                     if (this.percentage > 0)
-                                        return '<b>' + this.point.name + '</b>: ' + this.percentage + ' %'; // 这里进行判断
+                                        return '<b style="font-size: 14px">' + this.point.name + '</b><b style="font-size: 14px">: ' + this.percentage + ' %</b>'; // 这里进行判断
                                 },
                             },
                             showInLegend: true
@@ -221,25 +222,25 @@
                         colorByPoint: true,
                         data: [{
                             name: 'Fe foil',
-                            y: 0,
+                            y: 8.7,
                         }, {
                             name: 'Fe2O3',
-                            y: 59
+                            y: 45.8,
                         }, {
                             name: 'FeN',
-                            y: 0
+                            y: 0.2,
                         }, {
                             name: 'Fe3O4',
-                            y: 23
+                            y: 12.4,
                         }, {
                             name: 'FeC',
-                            y: 0
+                            y: 15.2,
                         }, {
                             name: 'FeO',
-                            y: 18
+                            y: 9.6,
                         }, {
                             name: 'FeS2',
-                            y: 0
+                            y: 8.1
                         }]
                     }]
                 }
