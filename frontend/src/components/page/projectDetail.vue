@@ -2,7 +2,7 @@
     <div>
         <div class="content" :style="{'min-height':min_height+'px'}">
             <div class="topdiv">
-                <label class="topdiv-title">{{'测试文件3'}}</label>
+                <label class="topdiv-title">{{'test文件'}}</label>
             </div>
             <div class="line"></div>
 <!--            <div>-->
@@ -14,7 +14,7 @@
 <!--                    <label class="content-label"> {{'Fe'}}</label>-->
                 </el-form-item>
                 <el-form-item class="form-item" label="吸收边能量E0：">
-                    <label class="content-label"> {{'7112' + ' ev'}}</label>
+                    <label class="content-label"> {{'7127.454' + ' ev'}}</label>
                 </el-form-item>
             </el-form>
 <!--            <div class="line"></div>-->
@@ -49,95 +49,9 @@
                 XAFS_id: 'XAFS',
                 component_column_id: 'component_column',
                 component_pie_id: 'component_pie',
-                XAFS_option: {
-                    chart: {
-                        type: 'spline'
-                    },
-                    title: {
-                        text: 'XAFS谱图'
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    xAxis: {
-                        title: {
-                            text: '能量E(ev)'
-                        }
-                    },
-                    colors: ['#39F', '#F7A35C'],
-                    yAxis: {
-                        title: {
-                            text: '吸收系数μ(E)'
-                        },
-                        // min: 0
-                    },
-                    plotOptions: {
-                        spline: {
-                            marker: {
-                                enabled: true
-                            }
-                        }
-                    },
-                    series: [{
-                        name: 'XAFS原始谱图',
-                        data: [
-                            [6091, 0],
-                            [6527, 0.6],
-                            [7039, 0.7],
-                            [7112, 0.8],
-                            [7296, 0.6],
-                            [7477, 0.6],
-                            [7643, 0.67],
-                            [7721, 0.81],
-                            [7809, 0.78],
-                            [7914, 0.98],
-                            [8113, 1.84],
-                            [8266, 1.80],
-                            [8585, 1.80],
-                            [8679, 1.92],
-                            [8836, 2.49],
-                            [8975, 2.79],
-                            [9100, 2.73],
-                            [9322, 2.61],
-                            [9431, 2.76],
-                            [9556, 2.82],
-                            [9598, 2.8],
-                            [9653, 2.1],
-                            [9712, 1.1],
-                            [9833, 0.25],
-                            [9897, 0]
-                        ]
-                    }, {
-                        name: 'XAFS预处理后谱图',
-                        data: [
-                            [6091, 0],
-                            [6527, 1.65],
-                            [7039, 1.75],
-                            [7112, 1.85],
-                            [7296, 1.65],
-                            [7477, 1.65],
-                            [7643, 1.76],
-                            [7721, 1.97],
-                            [7809, 1.85],
-                            [7914, 2.23],
-                            [8113, 2.99],
-                            [8266, 2.92],
-                            [8585, 2.90],
-                            [8679, 3.00],
-                            [8836, 3.61],
-                            [8975, 3.85],
-                            [9100, 3.82],
-                            [9322, 3.78],
-                            [9431, 3.88],
-                            [9556, 3.97],
-                            [9598, 3.93],
-                            [9653, 3.25],
-                            [9712, 2.25],
-                            [9833, 1.40],
-                            [9897, 0]
-                        ]
-                    }]
-                },
+                XAFSData: [],
+                norData: [],
+                XAFS_option: {},
                 component_column_option: {
                     chart: {
                         type: 'column'
@@ -186,7 +100,7 @@
                     },
                     series: [{
                         // data: [0, 59, 0, 23, 0, 18, 0]
-                        data: [8.7, 45.8, 0.2, 12.4, 15.2, 9.6, 8.1]
+                        data: [15.2, 48.5, 1.1, 22.2, 0.7, 7.3, 5]
                     }]
                 },
                 component_pie_option: {
@@ -222,25 +136,25 @@
                         colorByPoint: true,
                         data: [{
                             name: 'Fe foil',
-                            y: 8.7,
-                        }, {
-                            name: 'Fe2O3',
-                            y: 45.8,
-                        }, {
-                            name: 'FeN',
-                            y: 0.2,
-                        }, {
-                            name: 'Fe3O4',
-                            y: 12.4,
-                        }, {
-                            name: 'FeC',
                             y: 15.2,
                         }, {
+                            name: 'Fe2O3',
+                            y: 48.5,
+                        }, {
+                            name: 'FeN',
+                            y: 1.1,
+                        }, {
+                            name: 'Fe3O4',
+                            y: 22.2,
+                        }, {
+                            name: 'FeC',
+                            y: 0.7,
+                        }, {
                             name: 'FeO',
-                            y: 9.6,
+                            y: 7.3,
                         }, {
                             name: 'FeS2',
-                            y: 8.1
+                            y: 5,
                         }]
                     }]
                 }
@@ -252,6 +166,8 @@
         },
         mounted() {
             console.log('项目ID：', this.job_id);
+            this.getXAFSData();
+
         },
         methods: {
             getProjectDetail() {
@@ -269,6 +185,54 @@
             },
             getElementButton(element) {
                 return element.toLowerCase() === 'fe' ? 'primary': element.toLowerCase() === 'cu' ? 'warning': element.toLowerCase() === 'ni' ? 'info': element.toLowerCase() === 'pt' ? 'success': '';
+            },
+            // 获取XAFS数据
+            getXAFSData() {
+                API.getXAFSData()
+                .then(result => {
+                    this.XAFSData = result.data.data;
+                    this.norData= result.data.nor_data;
+                    this.XAFS_option = {
+                        chart: {
+                            type: 'spline'
+                        },
+                        title: {
+                            text: 'XAFS谱图'
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        xAxis: {
+                            title: {
+                                text: '能量E(ev)'
+                            }
+                        },
+                        colors: ['#39F', '#F7A35C'],
+                        yAxis: {
+                            title: {
+                                text: '吸收系数μ(E)'
+                            },
+                            // min: 0
+                        },
+                        plotOptions: {
+                            spline: {
+                                marker: {
+                                    enabled: false
+                                }
+                            },
+                        },
+                        series: [{
+                            name: 'XAFS原始谱图',
+                            data: this.XAFSData
+                        }, {
+                            name: 'XAFS预处理后谱图',
+                            data: this.norData
+                        }]
+                    };
+                })
+                .catch(execption => {
+                    console.log(execption);
+                });
             },
         },
     }

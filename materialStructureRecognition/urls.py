@@ -28,4 +28,7 @@ urlpatterns = [
     path('getRecognizeTableList/', views.get_recognize_table_list),
     path('getRecognizedCardList/', views.get_recognized_card_list),
     path('postUploadFile/', views.post_upload_file),
+    path('postDownloadFile/', views.post_download_file),
+    path('deleteFile/', views.delete_file),
+    path('getXAFSData/', views.get_XAFS_data),
 ]

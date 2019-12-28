@@ -26,13 +26,36 @@ let API = {
                 .catch(error => {
                     reject(error);
                 });
-            // axios.post("/test/", {data: params})
-            //     .then(result => {
-            //         resolve(result);
-            //     })
-            //     .catch(error => {
-            //         reject(error);
-            //     });
+        });
+    },
+    postDownloadFile(params) {
+        return new Promise((resolve, reject) => {
+            axios({
+                method: 'post',
+                url: "/postDownloadFile/",
+                data: params,
+            })
+                .then(result => {
+                    resolve(result);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    },
+    postDeleteFile(params) {
+        return new Promise((resolve, reject) => {
+            axios({
+                method: 'post',
+                url: "/deleteFile/",
+                data: params,
+            })
+                .then(result => {
+                    resolve(result);
+                })
+                .catch(error => {
+                    reject(error);
+                });
         });
     },
     getRecognizeTableList() {
@@ -67,6 +90,17 @@ let API = {
         //             reject(error);
         //         });
         // });
+    },
+    getXAFSData() {
+        return new Promise((resolve, reject) => {
+            axios.get("/getXAFSData/", {})
+                .then(result => {
+                    resolve(result);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
     },
 };
 

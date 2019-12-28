@@ -10,7 +10,7 @@
                 <el-table-column label="操作" min-width="30%">
                     <template slot-scope="scope">
                         <el-button size="mini" type="success" plain @click="recognize(scope.row)">识别物质结构</el-button>
-                        <el-button size="mini" type="primary" plain @click="recognize(scope.row)">下载文件</el-button>
+                        <el-button size="mini" type="primary" plain @click="download(scope.row)">下载文件</el-button>
                         <el-button size="mini" type="danger" @click="del(scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
@@ -141,6 +141,34 @@
                 .catch(execption => {
                     console.log(execption);
                 });
+            },
+
+            // 下载测试文件
+            download(row) {
+                let formData = new FormData();
+                formData.append('id', row.id);
+                API.postDownloadFile(formData)
+                    .then(result => {
+                        console.log("OK!")
+                    })
+                    .catch(execption => {
+                        console.log(execption);
+                    });
+            },
+
+            // 删除测试文件
+            del(row) {
+                let formData = new FormData();
+                formData.append('id', row.id);
+                API.postDeleteFile(formData)
+                    .then(result => {
+                        this.$alert('删除成功！', '提示').then(() => {
+                            this.$router.go(0);
+                        })
+                    })
+                    .catch(execption => {
+                        console.log(execption);
+                    });
             },
         },
     }

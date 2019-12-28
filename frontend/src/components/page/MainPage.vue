@@ -3,6 +3,13 @@
         <div class="content" :style="{'min-height':min_height+'px'}">
             <div class="top-content">
                 <label style="font-size: 18px; font-weight: bold;">XAFS谱图文件列表</label>
+                <div class="top-select">
+                    <el-input placeholder="请输入要查询的文件名"
+                              v-model="selectTitle"
+                              suffix-icon="el-icon-search"
+                              @keypress.native.enter="search"
+                              size="small"></el-input>
+                </div>
                 <el-popover placement="bottom" v-model="createProjectPopoverVisible" width="330" class="create-project-button">
                     <div class="label-item">
                         <label><span style="color: #D0021B;font-size: 12px">* </span>文件名称：</label>
@@ -124,10 +131,11 @@ export default {
         },
         handleChange(file, fileList) {
             let sizeMB = file.size / 1024 / 1024;
-            if (!this.checkSuffix(file.raw.name)) {
-                this.$alert('文件不合法，只能为txt文件或dat文件');
-                this.fileList.splice(0, 1);
-            } else if (sizeMB > 10) {
+            // if (!this.checkSuffix(file.raw.name)) {
+            //     this.$alert('文件不合法，只能为txt文件或dat文件');
+            //     this.fileList.splice(0, 1);
+            // }
+            if (sizeMB > 10) {
                 this.$alert('文件超过10MB');
                 this.fileList.splice(0, 1);
             } else {
@@ -173,9 +181,7 @@ export default {
             formData.append('comment', this.comment);
             API.postUploadFile(formData)
                 .then(result => {
-                    // alert(result.data);
-                    console.log(result.data);
-                    // this.$router.go(0);
+                    this.$router.go(0);
                     loadingInstance.close();
                 })
                 .catch(execption => {
@@ -207,9 +213,15 @@ export default {
         display: flex;
         margin-top: 20px;
 
+        .top-select {
+            margin-left: auto;
+            margin-right: 0;
+            line-height: 3.2;
+        }
+
         .create-project-button {
             padding: 10px;
-            margin-left: auto;
+            margin-left: 0;
             margin-right: 0;
         }
     }
